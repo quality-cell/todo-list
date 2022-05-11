@@ -1,6 +1,5 @@
 # TO-DO list
-Etherscan:https://ropsten.etherscan.io/address/0xAAA752c45383eEEEDAa09E0981C85A3Df338F0A2#code
-
+Etherscan:https://ropsten.etherscan.io/address/0xAAA752c45383eEEEDAa09E0981C85A3Df338F0A2#code                                                                           
 This project provides a basic todo-list smart contract implementation with tests.
 
 ## This project has the following features
