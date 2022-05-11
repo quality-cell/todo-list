@@ -13,8 +13,7 @@ describe("todo", function () {
     it("Create task && Delete task", async function () {
         await this.todo.setTask("Покушать", 1);
 
-        const signer = await this.bob.getAddress();
-        let task = await this.todo.getTask(0, signer);
+        let task = await this.todo.getTask(0);
 
         expect(task.name).to.be.eq('Покушать');
 
@@ -22,7 +21,7 @@ describe("todo", function () {
         await this.todo.setStatusDone(0);
         await this.todo.deleteTask(0);
 
-        task = await this.todo.getTask(0, signer);
+        task = await this.todo.getTask(0);
 
         expect(task.isDeleted).to.be.true;
     });
@@ -30,20 +29,19 @@ describe("todo", function () {
     it("Change status", async function () {
         await this.todo.setTask("Покушать", 1);
 
-        const signer = await this.bob.getAddress();
-        let task = await this.todo.getTask(0, signer);
+        let task = await this.todo.getTask(0);
 
         expect(task.statusTask).to.be.eq(1);
 
         await this.todo.setStatusInProgress(0);
 
-        task = await this.todo.getTask(0, signer);
+        task = await this.todo.getTask(0);
 
         expect(task.statusTask).to.be.eq(3);
 
         await this.todo.setStatusDone(0);
 
-        task = await this.todo.getTask(0, signer);
+        task = await this.todo.getTask(0);
 
         expect(task.statusTask).to.be.eq(4);
     });
@@ -60,7 +58,7 @@ describe("todo", function () {
         let user = await this.todo.getUser(signer);
 
         for (let i = 0; i < user; i++) {
-            let task = await this.todo.getTask(i, signer);
+            let task = await this.todo.getTask(i);
             tasks[i] = task;
         }
         
@@ -74,13 +72,12 @@ describe("todo", function () {
         await this.todo.setTask("Смотреть новости", 10);
         await this.todo.setTask("Покушать", 1);
         
-        const signer = await this.bob.getAddress();
-        let task = await this.todo.getTask(0, signer);
+        let task = await this.todo.getTask(0);
 
         await this.todo.setStatusInProgress(0);
         await this.todo.setStatusDone(0);
 
-        task = await this.todo.getTask(0, signer);
+        task = await this.todo.getTask(0);
 
         let percent = await this.todo.taskInTime();
 

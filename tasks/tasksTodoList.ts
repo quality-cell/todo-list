@@ -16,11 +16,10 @@ task("create", "Create a task")
 task("get", "Get a task") 
     .addParam("contract", "address")
     .addParam("id", "id task")
-    .addParam("add", "address of user")
     .setAction(async (taskArgs, hre) => {
         const todo = await hre.ethers.getContractAt("TodoList", taskArgs.contract);
 
-        let task = await todo.getTask(Number(taskArgs.id), taskArgs.add);
+        let task = await todo.getTask(Number(taskArgs.id));
 
         console.log(task);
 })

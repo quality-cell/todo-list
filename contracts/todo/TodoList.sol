@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 /**
  * @title To-do list
- * @author Anton Y. Malko
+ * @author Anton Malko
  * @notice You can use this contract to make a to-do list
  * @dev All function calls are currently implemented without side effects
 */
@@ -24,47 +24,48 @@ contract TodoList {
         Status statusTask;
     }
 
-    mapping(address => uint256) public ids;
-    mapping(address => mapping(uint256 =>Task)) public tasks;
+    mapping(address => uint256) private ids;
+    mapping(address => mapping(uint256 =>Task)) private tasks;
 
     error functionInvalidAtThisStage();
 
     /**
      * @notice This event returns the data entered by the user and his address
      * @dev You can change the return arguments
-     * @param users_ Address of the user who created the task
-     * @param name_ The name of the task created by the user
-     * @param data_ The number of days in which the task needs to be completed
+     * @param users Address of the user who created the task
+     * @param name The name of the task created by the user
+     * @param data The number of days in which the task needs to be completed
     */
     event UserTask(
-        address indexed users_, 
-        string name_, 
-        uint256 data_
+        address indexed users, 
+        string name, 
+        uint256 data
     );
     
     /**
      * @notice This event returns the data entered by the user and his address
      * @dev You can change the return arguments
-     * @param users_ Address of the user who created the task
-     * @param name_ The name of the task created by the user
-     * @param id_ Task number
+     * @param users Address of the user who created the task
+     * @param name The name of the task created by the user
+     * @param id Task number
     */
     event DeleteTask(
-        address indexed users_, 
-        string name_, 
-        uint256 indexed id_
+        address indexed users, 
+        string name, 
+        uint256 indexed id
     );
 
     modifier atStage(Status stage_, uint256 id_) {
         if (tasks[msg.sender][id_].statusTask != stage_) {
             revert functionInvalidAtThisStage();
         }
-        
+
         _;
     }
        
     modifier nextStage(uint256 id_) {
         _;
+
         _nextStage(id_);
     }
 
@@ -185,7 +186,8 @@ contract TodoList {
         require(ids[msg.sender] != 0, "Zero tasks");
 
         for (uint i; i < ids[msg.sender]; i++) {
-            if (!_isOverdue(tasks[msg.sender][i]) && tasks[msg.sender][i].statusTask == Status.doneTask) {
+            if (!_isOverdue(tasks[msg.sender][i]) && 
+                    tasks[msg.sender][i].statusTask == Status.doneTask) {
                 counter++;
             }
         }

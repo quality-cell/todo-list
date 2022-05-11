@@ -2,7 +2,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers"
 import { ethers } from "hardhat"
 
 export async function prepareSigners(thisObject: Mocha.Context) {
-    thisObject.signers = await ethers.getSigners()
+    thisObject.signers = await ethers.getSigners();
     thisObject.bob = thisObject.signers[0];
 }
 
